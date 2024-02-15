@@ -29,6 +29,9 @@ export function createApiClient(requestAdapter: RequestAdapter) {
     registerDefaultDeserializer(JsonParseNodeFactory);
     registerDefaultDeserializer(TextParseNodeFactory);
     registerDefaultDeserializer(FormParseNodeFactory);
+    if (requestAdapter.baseUrl === undefined || requestAdapter.baseUrl === "") {
+        requestAdapter.baseUrl = "https://dummyjson.com";
+    }
     const pathParameters: Record<string, unknown> = {
         "baseurl": requestAdapter.baseUrl,
     };
