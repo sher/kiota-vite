@@ -16,48 +16,55 @@ export interface PostsItemRequestBuilder extends BaseRequestBuilder<PostsItemReq
     /**
      * Get a post by ID
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns a Promise of ArrayBuffer
+     * @returns {Promise<ArrayBuffer>}
      */
      get(requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ArrayBuffer | undefined>;
     /**
      * Update a post by ID
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns a Promise of ArrayBuffer
+     * @returns {Promise<ArrayBuffer>}
      */
      put(body: Post, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ArrayBuffer | undefined>;
     /**
      * Delete a post by ID
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns a RequestInformation
+     * @returns {RequestInformation}
      */
      toDeleteRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
      * Get a post by ID
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns a RequestInformation
+     * @returns {RequestInformation}
      */
      toGetRequestInformation(requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
     /**
      * Update a post by ID
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @returns a RequestInformation
+     * @returns {RequestInformation}
      */
      toPutRequestInformation(body: Post, requestConfiguration?: RequestConfiguration<object> | undefined) : RequestInformation;
 }
+/**
+ * Uri template for the request builder.
+ */
+export const PostsItemRequestBuilderUriTemplate = "{+baseurl}/posts/{id}";
 /**
  * Metadata for all the requests in the request builder.
  */
 export const PostsItemRequestBuilderRequestsMetadata: RequestsMetadata = {
     delete: {
+        uriTemplate: PostsItemRequestBuilderUriTemplate,
         adapterMethodName: "sendNoResponseContentAsync",
     },
     get: {
+        uriTemplate: PostsItemRequestBuilderUriTemplate,
         adapterMethodName: "sendPrimitiveAsync",
         responseBodyFactory:  "ArrayBuffer",
     },
     put: {
+        uriTemplate: PostsItemRequestBuilderUriTemplate,
         adapterMethodName: "sendPrimitiveAsync",
         responseBodyFactory:  "ArrayBuffer",
         requestBodyContentType: "application/json",
@@ -65,9 +72,5 @@ export const PostsItemRequestBuilderRequestsMetadata: RequestsMetadata = {
         requestInformationContentSetMethod: "setContentFromParsable",
     },
 };
-/**
- * Uri template for the request builder.
- */
-export const PostsItemRequestBuilderUriTemplate = "{+baseurl}/posts/{id}";
 /* tslint:enable */
 /* eslint-enable */

@@ -1,7 +1,14 @@
-.PHONY: kiota
-kiota:
-	docker run --rm \
-		-v ./src/client:/app/output \
-		-v ./openapi.yaml:/app/openapi.yaml \
-		mcr.microsoft.com/openapi/kiota:1.11.1 \
-		generate --co -b --language typescript
+KIOTA = $(PWD)/bin/kiota
+KIOTA_VERSION = v1.11.1-preview.202402150001
+KIOTA_OS = osx
+
+$(KIOTA):
+	mkdir -p bin
+	curl -sSLfO https://github.com/microsoft/kiota/releases/download/$(KIOTA_VERSION)/$(KIOTA_OS)-x64.zip
+	unzip $(KIOTA_OS)-x64.zip -d bin
+	rm $(KIOTA_OS)-x64.zip
+	chmod +x $(KIOTA)
+
+.PHONY: kiota-generate
+kiota-generate: $(KIOTA)
+	$(KIOTA) generate -d ./openapi.yaml --language typescript --co -o ./src/client
