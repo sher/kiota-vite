@@ -1,28 +1,28 @@
 openapi: 3.0.0
 info:
-  title: Sample API
+  title: Posts API
   version: 1.0.0
 paths:
-  /users:
+  /posts:
     get:
-      summary: Get all users
+      summary: Get all posts
       responses:
         '200':
           description: OK
     post:
-      summary: Create a new user
+      summary: Create a new post
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/Post'
       responses:
         '201':
           description: Created
-  /users/{id}:
+  /posts/{id}:
     get:
-      summary: Get a user by ID
+      summary: Get a post by ID
       parameters:
         - name: id
           in: path
@@ -32,8 +32,10 @@ paths:
       responses:
         '200':
           description: OK
+        '404':
+          description: Not Found
     put:
-      summary: Update a user by ID
+      summary: Update a post by ID
       parameters:
         - name: id
           in: path
@@ -45,12 +47,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/Post'
       responses:
         '200':
           description: OK
+        '404':
+          description: Not Found
     delete:
-      summary: Delete a user by ID
+      summary: Delete a post by ID
       parameters:
         - name: id
           in: path
@@ -62,12 +66,12 @@ paths:
           description: No Content
 components:
   schemas:
-    User:
+    Post:
       type: object
       properties:
         id:
           type: string
-        name:
+        title:
           type: string
-        email:
+        content:
           type: string

@@ -7,7 +7,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    client.users.get().then(console.log)
+    client.posts.get().then(console.log)
   }, []);
 
   return (

@@ -7,5 +7,6 @@ import { createApiClient } from './client/apiClient';
 const authProvider = new AnonymousAuthenticationProvider();
 // Create request adapter using the fetch-based implementation
 const adapter = new FetchRequestAdapter(authProvider);
+adapter.baseUrl = 'https://jsonplaceholder.typicode.com';
 // Create the API client
 export const client = createApiClient(adapter);

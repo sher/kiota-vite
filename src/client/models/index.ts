@@ -6,34 +6,24 @@ import { type AdditionalDataHolder, type BackedModel, type BackingStore, type Pa
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
- * @returns a User
+ * @returns a Post
  */
-export function createUserFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
-    return deserializeIntoUser;
+export function createPostFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoPost;
 }
 /**
  * The deserialization information for the current model
  * @returns a Record<string, (node: ParseNode) => void>
  */
-export function deserializeIntoUser(user: Partial<User> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+export function deserializeIntoPost(post: Partial<Post> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
-        "backingStoreEnabled": n => { user.backingStoreEnabled = true; },
-        "email": n => { user.email = n.getStringValue(); },
-        "id": n => { user.id = n.getStringValue(); },
-        "name": n => { user.name = n.getStringValue(); },
+        "backingStoreEnabled": n => { post.backingStoreEnabled = true; },
+        "content": n => { post.content = n.getStringValue(); },
+        "id": n => { post.id = n.getStringValue(); },
+        "title": n => { post.title = n.getStringValue(); },
     }
 }
-/**
- * Serializes information the current object
- * @param writer Serialization writer to use to serialize this model
- */
-export function serializeUser(writer: SerializationWriter, user: Partial<User> | undefined = {}) : void {
-    writer.writeStringValue("email", user.email);
-    writer.writeStringValue("id", user.id);
-    writer.writeStringValue("name", user.name);
-    writer.writeAdditionalData(user.additionalData);
-}
-export interface User extends AdditionalDataHolder, BackedModel, Parsable {
+export interface Post extends AdditionalDataHolder, BackedModel, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
      */
@@ -43,17 +33,27 @@ export interface User extends AdditionalDataHolder, BackedModel, Parsable {
      */
     backingStoreEnabled?: boolean;
     /**
-     * The email property
+     * The content property
      */
-    email?: string;
+    content?: string;
     /**
      * The id property
      */
     id?: string;
     /**
-     * The name property
+     * The title property
      */
-    name?: string;
+    title?: string;
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+export function serializePost(writer: SerializationWriter, post: Partial<Post> | undefined = {}) : void {
+    writer.writeStringValue("content", post.content);
+    writer.writeStringValue("id", post.id);
+    writer.writeStringValue("title", post.title);
+    writer.writeAdditionalData(post.additionalData);
 }
 /* tslint:enable */
 /* eslint-enable */
